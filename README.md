@@ -450,7 +450,7 @@ fig.show()
 <br>
 
 
-
+`Interactive pie chart visualization showing the proportion of premium products and products with tin package `
 ```python
 
 #Prepare dataset to plot
@@ -490,7 +490,7 @@ fig.show()
 <br>
 
 
-
+`The top 5 and bottom 5 most expensive baklava`
 ```python
 # Prepare data for plot
 top_5_expensive_index = df_clean['baklava_price_euro'].sort_values(ascending=False)[0:6].index
