@@ -4,7 +4,7 @@
 
 This personal project is made to understand and learn how data can be scraped from a website. Baklava is a very delicious turkish dessert, and I really like 
 baklava. I therefore decided to webscrape [Hafız Mustafa](https://online.hafizmustafa.com/baklava-en), which is a baklava brand, which in my opinion makes 
-the best baklava. The following three images are respectively a webscraped baklava image from the website, the sub-dataset (the whole dataset contain 64 rows) 
+the best baklava. The following three images are respectively a webscraped baklava image (the most expensive one) from the website, the sub-dataset (the whole dataset contains 64 rows) 
 I have created by scraping data from the website and cleaning it with Pandas and an interactive visualization made with Plotly.
 
 <br>
@@ -303,6 +303,112 @@ print(df_clean['baklava_size'].value_counts()) #approval test
 </details>
 
 <br>  
+
+
+## 4.) Data visualization with `seaborn`, `matplotlib` and `Plotly` 
+
+This section contains 2 main subsections: *Visualization with Seaborn and Matplotlib* and *Interactive visualizations with Plotly*.
+
+
+### 4.1) Visualization with Seaborn and Matplotlib
+
+
+`Top 10 most expensive baklava plot`
+```python
+
+#Prepare the data to show top 10 most expensive baklava
+top_10_expensive_index = df_clean['baklava_price_euro'].sort_values(ascending=False)[0:11].index
+top_10_expensive_price = df_clean.loc[top_10_expensive_index]['baklava_price_euro']
+top_10_expensive_name = df_clean.loc[top_10_expensive_index]['baklava_name']
+
+plt.figure(figsize=(20,10))
+pal = sns.color_palette("Reds_d", len(top_10_expensive_index))
+sns.barplot(top_10_expensive_name, top_10_expensive_price, alpha=0.8, palette=np.array(pal[::-1]))
+plt.title('The top 10 most expensive baklava', fontsize=30)
+plt.ylabel('Price in Euros', fontsize=20)
+plt.xlabel('Baklava names', fontsize=20)
+plt.tick_params(axis = 'x', rotation = 30)
+plt.xticks(size=14)
+plt.yticks(size=14)
+plt.show()
+
+```
+
+--> Image
+
+
+`The image of the most expensive baklava`
+```python
+# Plot the most expensive baklava from hafizoglu
+from PIL import Image
+most_expensive_baklava_image = df_clean[df_clean['baklava_name'] == top_10_expensive_name[0]]['baklava_image_path'][0]
+print(most_expensive_baklava_image) # Output --> 'imagefolder/fistikli-cevizli-karisik-baklava-xl-ku-436-99.jpg'
+Image.open(most_expensive_baklava_image)
+```
+
+<br>
+<p align="center"> <img src="imagefolder/fistikli-cevizli-karisik-baklava-xl-ku-436-99.jpg" alt="Drawing"/> </p>
+<br>
+
+
+`Pie chart visualizations showing the proportion of premium products and products with tin package`
+```python
+# Prepare the data for creating pie charts
+premium_pie = df_clean['premium'].value_counts()
+tin_pie = df_clean['tin'].value_counts()
+
+# create pie chart
+fig = plt.figure(figsize=(20,10))
+
+explode = (0,0.3)
+ax1 = fig.add_axes([0, 0, .5, .5], aspect=1)
+ax1.pie(premium_pie.values, labels=premium_pie.index, explode=explode, autopct='%1.1f%%', radius = 1.7, shadow=True,textprops={'fontsize': 14})
+
+ax2 = fig.add_axes([.5, .0, .5, .5], aspect=1)
+ax2.pie(tin_pie.values, labels=tin_pie.index,explode=explode, autopct='%1.1f%%', radius = 1.7, shadow=True,textprops={'fontsize': 14})
+
+ax1.set_title('Overview for the number \n of Premium Baklava',fontsize=16)
+ax2.set_title('Overview for the number \n of Baklava with Tin package',fontsize=16)
+
+plt.show()
+```
+
+--> Image
+
+`Bar plot showing the average price for each size`
+```python
+
+# Preparing for a plot showing the average price for each size
+size = df_clean.groupby(['baklava_size']).agg(mean_price_by_size=("baklava_price_euro", 'mean'))
+size = size.reset_index()
+size = size.set_index([pd.Index([1,0,4,3,2,5])]).sort_index() # to have chronology regards to the size
+
+# Figure size
+fig = plt.figure(figsize=(20,10))
+
+pal = sns.color_palette("Reds_d", len(size)) # Preparing color palette
+
+# plot barplot
+sns.barplot(x="baklava_size",
+           y="mean_price_by_size",
+           data=size,
+           palette=np.array(pal))
+
+plt.title('The average price in euros for each size', fontsize=30)
+plt.ylabel('Euros', fontsize=20)
+plt.xlabel('Baklava sizes', fontsize=20)
+plt.xticks(size=14)
+plt.yticks(size=14)
+plt.show()
+
+```
+
+--> Image
+
+
+
+### 4.2) Interactive visualizations with Plotly
+
 
 
 
