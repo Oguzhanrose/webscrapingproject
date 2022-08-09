@@ -20,7 +20,7 @@ I have created by scraping data from the website and cleaning it with Pandas and
 <br>
 
 ## 1.) Webscraping
-So we start first with scraping the data from this [website](https://online.hafizmustafa.com/baklava-en).
+So we start first with scraping the data from this [website](https://online.hafizmustafa.com/baklava-en). We are doing so, by first importing relevant libraries such as Beautifulsoup4, requests etc. Then we fetch the whole content from the website, and starting writing a script to only extract the data of interest. Many comments are written in the code to guide why the code is written so. Lastly we store all the extracted data of interest in the prepared csv file.
 
 ### 1.1) Import relevant libraries
 
