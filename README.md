@@ -334,7 +334,9 @@ plt.show()
 
 ```
 
---> Image
+<br>
+<p align="center"> <img src="git_image/most_expensive_10.png" alt="Drawing"/> </p>
+<br>
 
 
 `The image of the most expensive baklava`
@@ -373,7 +375,9 @@ ax2.set_title('Overview for the number \n of Baklava with Tin package',fontsize=
 plt.show()
 ```
 
---> Image
+<br>
+<p align="center"> <img src="git_image/proportion_tin_premium.png" alt="Drawing"/> </p>
+<br>
 
 `Bar plot showing the average price for each size`
 ```python
@@ -403,21 +407,117 @@ plt.show()
 
 ```
 
---> Image
+<br>
+<p align="center"> <img src="git_image/size_average_price.png" alt="Drawing"/> </p>
+<br>
 
 
 
 ### 4.2) Interactive visualizations with Plotly
 
+<br>
+
+<details>
+<summary>Click to see the libraries</summary>
+
+```python
+# Import plotly to create the interactive plots
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+```
+
+</details>
+
+<br>   
+
+`Overview of number of baklava per size`
+```python
+
+#Prepare the dataset to plot
+size_names = df_clean['baklava_size'].value_counts().index
+size_counts = df_clean['baklava_size'].value_counts().values
+
+# Create the interactive piechart 
+fig = px.pie(size_names, values=size_counts, names=size_names, title='Baklava size overview',color_discrete_sequence=px.colors.sequential.RdBu)
+fig.update_traces(textposition='inside', textinfo='percent+value')
+fig.show()
+
+```
+
+
+--> Image
 
 
 
+```python
+
+#Prepare dataset to plot
+label_tin = df_clean['tin'].value_counts().index
+label_premium = df_clean['premium'].value_counts().index
+
+value_tin = df_clean['tin'].value_counts().values
+value_premium = df_clean['premium'].value_counts().values
+
+# Create subplots: use 'domain' type for Pie subplot
+fig = make_subplots(rows=1, cols=2, specs=[[{'type':'domain'}, {'type':'domain'}]])
+
+fig.add_trace(go.Pie(labels=label_tin, 
+                     values=value_tin, 
+                     name="Tin"),
+              1, 1)
+
+fig.add_trace(go.Pie(labels=label_premium, 
+                     values=value_premium, 
+                     name="Premium"),
+              1, 2)
+
+# Use `hole` to create a donut-like pie chart
+fig.update_traces(hole=.4, hoverinfo="label+percent+value")
+
+fig.update_layout(
+    title_text="Overview of how many Premium baklavas and baklavas with Tin package",
+    # Add annotations in the center of the donut pies.
+    annotations=[dict(text='Tin', x=0.205, y=0.5, font_size=20, showarrow=False),
+                 dict(text='Premium', x=0.82, y=0.5, font_size=20, showarrow=False)])
+fig.show()
+
+```
+
+--> Image
 
 
 
+```python
+# Prepare data for plot
+top_5_expensive_index = df_clean['baklava_price_euro'].sort_values(ascending=False)[0:6].index
+bottom_5_expensive_index = df_clean['baklava_price_euro'].sort_values(ascending=False)[-5:].index
+to_plot_indices = top_5_expensive_index.union(bottom_5_expensive_index)
+
+to_plot_price = df_clean.loc[to_plot_indices]['baklava_price_euro'].sort_values(ascending=False)
+to_plot_name = df_clean.loc[to_plot_price.index]['baklava_name']
+
+# To add additionally information when holding the mouse above the bar chart
+to_plot_premium = df_clean.loc[to_plot_price.index]['premium']
+to_plot_tin = df_clean.loc[to_plot_price.index]['tin']
+
+fig = px.bar(df_clean, 
+             x=to_plot_name, 
+             y=to_plot_price,
+             hover_data=[to_plot_premium, to_plot_tin],
+             labels={'hover_data_0':'Premium_or_not','hover_data_1':'Tin_or_not'},
+             color=to_plot_price,
+             color_continuous_scale=px.colors.sequential.Reds,
+            title = "Top 5 and bottom 5 most expensive baklava") 
+fig.show()
 
 
 
+```
+
+<br>
+<p align="center"> <img src="./git_image/plotly_visualization.png" alt="Drawing"/> </p>
+<br>
 
 
 
