@@ -16,7 +16,7 @@ I have created by scraping data from the website and cleaning it with Pandas and
 <br>
 
 <br>
-<p align="center"> <img src="./git_image/plotly_visualization.png" alt="Drawing"/> </p>
+<p align="center"> <img src="./git_image/interactive_top_bottom.gif" alt="Drawing"/> </p>
 <br>
 
 ## 1.) Webscraping
