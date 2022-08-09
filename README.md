@@ -160,8 +160,13 @@ df = pd.read_csv('baklava_scrape.csv')
 <details>
 <summary>Click to see the dataframe</summary>
 
+<br>
+<p align="center"> <img src="./git_image/dataframe_after_scraping" alt="Drawing"/> </p>
+<br>
+    
+</details>
 
-
+<br>  
 
 
 
