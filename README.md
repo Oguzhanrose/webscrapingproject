@@ -161,13 +161,148 @@ df = pd.read_csv('baklava_scrape.csv')
 <summary>Click to see the dataframe</summary>
 
 <br>
-<p align="center"> <img src="./git_image/dataframe_after_scraping" alt="Drawing"/> </p>
+<p align="center"> <img src="./git_image/dataframe_after_scraping.png" alt="Drawing"/> </p>
 <br>
     
 </details>
 
 <br>  
 
+## 3.) Data wrangling, cleaning and preproccesing 
+What the dataframe looks like right now in the process can be seen right above. This section will be divided into 5 processing subsections: *Adding Premium feature*, *Cleaning the feature baklava_size and handle missing values*, *Adding Tin feature and remove whitespaces*, *Change data type of baklava_price* and *Handle the different namings on baklava_size feature*. These steps will lead us to fully preprocess the data for preparing it to visualization. The last subsection will show the final form of the dataframe.
+
+### 3.1) Adding Premium feature
+
+```python
+
+# Checkpoint
+df_clean = df.copy()
+
+# Some of the baklava are Premium. Those can have their own feature called premium 
+indexes_premium = df_clean[df_clean['baklava_name'].str.contains('Premium')].index
+indexes_not_premium = df_clean[~df_clean['baklava_name'].str.contains('Premium')].index
+
+#Adding the new feauture with Premium/ Not Premium
+df_clean.loc[indexes_premium,'premium'] = 'Premium'
+df_clean.loc[indexes_not_premium,'premium'] = 'Not Premium'
+
+#Deleting all the places where Premium appears in name
+df_clean["baklava_name"] = df_clean["baklava_name"].str.replace("Premium ", "")
+
+```
+
+### 3.2) Cleaning the feature baklava_size and handle missing values
+
+```python
+
+# We can see many ")" appears in this feature which easily can be 
+# removed by following line of code 
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace(')','')
+
+# Here we would like see the observations nan appears 
+df_clean[df_clean['baklava_size'].isna()]
+
+# We actually see that the size appears in the name
+df_clean.loc[df_clean['baklava_name'] == 'Ankara Walnut Baklava S Box','baklava_size'] = 'S Box'
+df_clean.loc[df_clean['baklava_name'] == 'Baklava, Halep Kadayif with Pistachio L Box','baklava_size'] = 'L Box'
+
+# Now we can remove the size from its name
+df_clean['baklava_name'] = df_clean['baklava_name'].str.replace('S Box','')
+df_clean['baklava_name'] = df_clean['baklava_name'].str.replace('L Box','')
+
+```
+
+### 3.3) Adding Tin feature and remove whitespaces
+
+```python
+
+# finding the indexes to material with Tin and not Tin
+tin_index_in_name = df_clean[df_clean['baklava_name'] == 'HM1864 Mixed Special Metal Tin Box '].index
+tin_index_in_size = df_clean[df_clean['baklava_size'].str.contains('Tin')].index
+all_tin_indices = tin_index_in_name.union(tin_index_in_size)
+
+all_index = df_clean.index
+no_tin_indeces = all_index.difference(all_tin_indices)
+
+# filling the indexes with corresponding package material
+df_clean.loc[all_tin_indices,'tin'] = 'Tin'
+df_clean.loc[no_tin_indeces,'tin'] = 'Not Tin'
+
+# Remove whether the material is tin or not for all other features
+df_clean['baklava_name'] = df_clean['baklava_name'].str.replace(' Metal Tin Box ','')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace(' - Tin Box','')
+
+#Remove spaces on right and left end of all strings
+df_clean['baklava_name'] = df_clean['baklava_name'].str.strip()
+df_clean['baklava_size'] = df_clean['baklava_size'].str.strip()
+
+```
+
+
+### 3.4) Change data type of baklava_price
+
+```python
+
+# Remove newlines from the feature.
+df_clean['baklava_price'] = df_clean['baklava_price'].replace('\n','', regex=True)
+
+# Remove euro sign € from the values and add it to feature name
+df_clean['baklava_price'] = df_clean['baklava_price'].replace('€','', regex=True)
+
+#Rename the feature name
+df_clean = df_clean.rename(columns={'baklava_price': 'baklava_price_euro'})
+df_clean
+# Change data type to float
+df_clean['baklava_price_euro'] = df_clean['baklava_price_euro'].replace(',','.', regex=True)
+df_clean['baklava_price_euro'] = pd.to_numeric(df_clean['baklava_price_euro'],errors='coerce')
+
+```
+
+
+### 3.5) Handle the different namings on baklava_size feature
+
+```python
+print(df_clean['baklava_size'].value_counts())
+
+# By the code above, we can see that same things are named differently or on another language (turkish)
+# Additionally we can see on all images that the packages are the same metal, so metal wil not be included.
+# The tin ones are given on another feature, so we are just renaming those we have to XL, L, M etc.
+
+# Handling the metals
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('XL Metal Box','XL')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('L Metal Box','L')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('M Metal Box','M')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('S Metal Box','S')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('XL Metal','XL')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('S Metal','S')
+
+# Handling the box name
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('S Box','S')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('XL Box','XL')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('L Box','L')
+
+# Handling other languages and types
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('L Kutu','L')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('S Kutu','S')
+df_clean['baklava_size'] = df_clean['baklava_size'].str.replace('Large Box','L')
+
+print(df_clean['baklava_size'].value_counts()) #approval test
+```
+
+### 3.6) Final form of the dataframe
+
+<br>
+
+<details>
+<summary>Click to see the dataframe</summary>
+
+<br>
+<p align="center"> <img src="./git_image/webscraped_and_cleaned_dataframe.png" alt="Drawing"/> </p>
+<br>
+    
+</details>
+
+<br>  
 
 
 
