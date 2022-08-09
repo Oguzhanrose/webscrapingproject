@@ -445,8 +445,9 @@ fig.show()
 
 ```
 
-
---> Image
+<br>
+<p align="center"> <img src="./git_image/size_proportion.png" alt="Drawing"/> </p>
+<br>
 
 
 
@@ -484,7 +485,9 @@ fig.show()
 
 ```
 
---> Image
+<br>
+<p align="center"> <img src="./git_image/proportion_tin_and_premium.png" alt="Drawing"/> </p>
+<br>
 
 
 
