@@ -3,7 +3,7 @@
 # Webscraping project - With data cleaning and visualization
 
 This personal project is made to understand and learn how data can be scraped from a website. Baklava is a very delicious turkish dessert, and I really like 
-baklava. I therefore decided to webscrape [Hafız Mustafa](https://online.hafizmustafa.com/baklava-en), which is a baklava brand, which in my opinion make 
+baklava. I therefore decided to webscrape [Hafız Mustafa](https://online.hafizmustafa.com/baklava-en), which is a baklava brand, which in my opinion makes 
 the best baklava. The following three images are respectively a webscraped baklava image from the website, the sub-dataset (the whole dataset contain 64 rows) 
 I have created by scraping data from the website and cleaning it with Pandas and an interactive visualization made with Plotly.
 
@@ -24,12 +24,22 @@ So we start first with scraping the data from this [website](https://online.hafi
 
 ### 1.1) Import relevant libraries
 
+<br>
+
+<details>
+<summary>Click to see the libraries</summary>
+
 ```python
 # Relevant Libraries 
 from bs4 import BeautifulSoup
 import requests
 import csv
 ```
+
+</details>
+
+<br>
+
 ### 1.2) Fetch content from website
 ```python
 # By this code we fetch the content from the URL given
@@ -96,7 +106,7 @@ csv_file.close()
 <br>
 
 <details>
-<summary>Click to expand!</summary>
+<summary>Click to see the libraries</summary>
 
 ```python
 # Import relevant libraries
@@ -122,10 +132,6 @@ df = pd.read_csv('baklava_scrape.csv')
 
 ### 2.2) Store all images from URL into computer and add the path to dataframe
 
-<br>
-
-<details>
-<summary>Click to expand!</summary>
 
   ```python
   # Convert from url to jpg image on computer
@@ -146,10 +152,23 @@ df = pd.read_csv('baklava_scrape.csv')
 
   df['baklava_image_path'] = baklava_path
   ```
-  
-</details>
+
+### 2.3) The status of the dataframe soo far
 
 <br>
+
+<details>
+<summary>Click to see the dataframe</summary>
+
+
+
+
+
+
+
+
+
+
 
 
 
