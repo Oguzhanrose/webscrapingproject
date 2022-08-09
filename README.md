@@ -93,6 +93,11 @@ csv_file.close()
 
 ### 2.1) Import relevant libraries and load data
 
+<br>
+
+<details>
+<summary>Click to expand!</summary>
+
 ```python
 # Import relevant libraries
 import numpy as np
@@ -111,6 +116,9 @@ display(HTML("<style>.container { width:78% !important; }</style>"))
 df = pd.read_csv('baklava_scrape.csv')
 ```
 
+</details>
+
+<br>   
 
 ### 2.2) Store all images from URL into computer and add the path to dataframe
 
