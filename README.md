@@ -4,7 +4,9 @@
 
 This personal project is made to understand and learn how data can be scraped from a website. Baklava is a very delicious turkish dessert, and I really like 
 baklava. I therefore decided to webscrape [Hafız Mustafa](https://online.hafizmustafa.com/baklava-en), which is a baklava brand, which in my opinion makes 
-the best baklava. The following three images are respectively a webscraped baklava image (the most expensive one) from the website, the sub-dataset (the whole dataset contains 64 rows) 
+the best baklava. 
+
+The following three images are respectively a webscraped baklava image (the most expensive one) from the website, the sub-dataset (the whole dataset contains 64 rows) 
 I have created by scraping data from the website and cleaning it with Pandas and an interactive visualization made with Plotly.
 
 <br>
