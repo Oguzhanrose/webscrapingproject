@@ -6,15 +6,20 @@ This personal project is made to understand and learn how data can be scraped fr
 baklava. I therefore decided to webscrape [Hafız Mustafa](https://online.hafizmustafa.com/baklava-en), which is a baklava brand, which in my opinion makes 
 the best baklava. 
 
-The following three images are respectively a webscraped baklava image (the most expensive one) from the website, the sub-dataset (the whole dataset contains 64 rows) 
-I have created by scraping data from the website and cleaning it with Pandas and an interactive visualization made with Plotly.
+The following three images are respectively:
+
+(1) A webscraped baklava image (the most expensive one) from the website.
+\
+(2) The sub-dataset (the whole dataset contains 64 rows), which I have created by scraping data from the website and cleaning it with Pandas.
+\
+(3) An interactive visualization made with Plotly.
 
 <br>
-<p align="center"> <img src="./imagefolder/fistikli-cevizli-karisik-baklava-xl-ku-436-99.jpg" alt="Drawing"/> </p>
+<p align="center"> <img src="./imagefolder/fistikli-cevizli-karisik-baklava-xl-ku-436-99.jpg" alt="Drawing" width="600"/> </p>
 <br>
 
 <br>
-<p align="center"> <img src="./git_image/webscraped_and_cleaned_dataframe.png" alt="Drawing"/> </p>
+<p align="center"> <img src="./git_image/webscraped_and_cleaned_dataframe.png" alt="Drawing" width="600"/> </p>
 <br>
 
 <br>
