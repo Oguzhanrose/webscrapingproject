@@ -356,7 +356,7 @@ Image.open(most_expensive_baklava_image)
 ```
 
 <br>
-<p align="center"> <img src="imagefolder/fistikli-cevizli-karisik-baklava-xl-ku-436-99.jpg" alt="Drawing"/> </p>
+<p align="center"> <img src="imagefolder/fistikli-cevizli-karisik-baklava-xl-ku-436-99.jpg" alt="Drawing" width="400"/> </p>
 <br>
 
 
