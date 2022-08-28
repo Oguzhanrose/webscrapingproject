@@ -176,7 +176,7 @@ df = pd.read_csv('baklava_scrape.csv')
 <br>  
 
 ## 3.) Data wrangling, cleaning and preproccesing 
-What the dataframe looks like right now in the process can be seen right above. This section will be divided into 5 processing subsections: *Adding Premium feature*, *Cleaning the feature baklava_size and handle missing values*, *Adding Tin feature and remove whitespaces*, *Change data type of baklava_price* and *Handle the different namings on baklava_size feature*. These steps will lead us to fully preprocess the data for preparing it to visualization. The last subsection will show the final form of the dataframe.
+What the dataframe looks like right now in the process can be seen right above. This section will be divided into 5 processing subsections: *Adding Premium feature*, *Cleaning the feature baklava_size and handle missing values*, *Adding Tin feature and remove whitespaces*, *Change data type of baklava_price* and *Handle the different namings on baklava_size feature*. These steps will lead us to fully preprocess the data for preparing it for visualization. The last subsection will show the final form of the dataframe.
 
 ### 3.1) Adding Premium feature
 
